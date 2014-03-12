@@ -32,6 +32,10 @@ module.exports = function (grunt) {
                 nospawn: true,
                 livereload: true
             },
+            haml: {
+                files: ['<%= yeoman.app %>/*.haml'],
+                tasks: ['haml:dist']
+            },
             coffee: {
                 files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
                 tasks: ['coffee:dist']
@@ -275,6 +279,13 @@ module.exports = function (grunt) {
                     ]
                 }
             }
+        },
+        haml: {
+            dist: {
+                files: {
+                    '.tmp/index.html': '<%= yeoman.app %>/index.haml'
+                }
+            }
         }
     });
 
@@ -308,6 +319,7 @@ module.exports = function (grunt) {
         grunt.task.run([
             'clean:server',
             'coffee:dist',
+            'haml:dist',
             'createDefaultTemplate',
             'jst',
             'compass:server',
@@ -329,7 +341,7 @@ module.exports = function (grunt) {
                 'mocha',
                 'watch:test'
             ];
-            
+
         if(!isConnected) {
             return grunt.task.run(testTasks);
         } else {
@@ -345,6 +357,7 @@ module.exports = function (grunt) {
         'createDefaultTemplate',
         'jst',
         'compass:dist',
+        'haml:dist',
         'useminPrepare',
         'imagemin',
         'htmlmin',
@@ -361,4 +374,6 @@ module.exports = function (grunt) {
         'test',
         'build'
     ]);
+
+    grunt.loadNpmTasks('grunt-contrib-haml');
 };

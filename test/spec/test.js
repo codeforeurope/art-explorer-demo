@@ -8,6 +8,10 @@
             it('should run here few assertions', function () {
 
             });
+
+            it('should run here few assertions', function () {
+
+            });
         });
     });
 })();

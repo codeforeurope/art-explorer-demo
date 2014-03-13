@@ -8,17 +8,34 @@
         %script(src="bower_components/modernizr/modernizr.js")
         / endbuild
         %link(rel="stylesheet" href="styles/main.css")
+
+        :javascript
+            (function() {
+                var path = '//easy.myfonts.net/v2/js?sid=156579(font-family=Humanist+777)&sid=156581(font-family=Humanist+777+Bold)&sid=156711(font-family=Humanist+777+Light)&key=CrYX1mMIoO',
+                    protocol = ('https:' == document.location.protocol ? 'https:' : 'http:'),
+                    trial = document.createElement('script');
+                trial.type = 'text/javascript';
+                trial.async = true;
+                trial.src = protocol + path;
+                var head = document.getElementsByTagName("head")[0];
+                head.appendChild(trial);
+            })();
     %body
-        %h1 Alright let's do this!
+        +include 'app/body.haml'
 
         / build:js scripts/vendor.js
         %script(src="bower_components/jquery/jquery.js")
         %script(src="bower_components/underscore/underscore.js")
         %script(src="bower_components/backbone/backbone.js")
+        %script(src="bower_components/masonry/masonry.js")
+        %script(src="bower_components/handlebars/handlebars.js")
         / endbuild
 
         / build:js({.tmp,app}) scripts/main.js
         %script(src="scripts/main.js")
         %script(src="scripts/templates.js")
-        %script(src="scripts/routes/main.js")
+        %script(src="scripts/models/work.js")
+        %script(src="scripts/collections/works.js")
+        %script(src="scripts/views/work.js")
+        %script(src="scripts/routes/works.js")
         / endbuild

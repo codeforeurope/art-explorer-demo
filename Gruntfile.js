@@ -32,10 +32,6 @@ module.exports = function (grunt) {
                 nospawn: true,
                 livereload: true
             },
-            haml: {
-                files: ['<%= yeoman.app %>/*.haml'],
-                tasks: ['haml:dist']
-            },
             coffee: {
                 files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
                 tasks: ['coffee:dist']
@@ -48,25 +44,29 @@ module.exports = function (grunt) {
                 files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
                 tasks: ['compass']
             },
+            haml: {
+            files: ['<%= yeoman.app %>/*.haml', '<%= yeoman.app %>/scripts/templates/*.haml'],
+                tasks: ['haml:index', 'haml:templates', 'handlebars']
+            },
             livereload: {
                 options: {
                     livereload: LIVERELOAD_PORT
                 },
                 files: [
-                    '<%= yeoman.app %>/*.html',
+                    '<%= yeoman.app %>/{,*/}*.{html, haml}',
                     '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css',
                     '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
                     '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
-                    '<%= yeoman.app %>/scripts/templates/*.{ejs,mustache,hbs}',
+                    '<%= yeoman.app %>/scripts/templates/*.haml',
                     'test/spec/**/*.js'
                 ]
             },
-            jst: {
-                files: [
-                    '<%= yeoman.app %>/scripts/templates/*.ejs'
-                ],
-                tasks: ['jst']
-            },
+            // jst: {
+            //     files: [
+            //         '<%= yeoman.app %>/scripts/templates/*.ejs'
+            //     ],
+            //     tasks: ['jst']
+            // },
             test: {
                 files: ['<%= yeoman.app %>/scripts/{,*/}*.js', 'test/spec/**/*.js'],
                 tasks: ['test:true']
@@ -260,13 +260,13 @@ module.exports = function (grunt) {
                 }]
             }
         },
-        jst: {
-            compile: {
-                files: {
-                    '.tmp/scripts/templates.js': ['<%= yeoman.app %>/scripts/templates/*.ejs']
-                }
-            }
-        },
+        // jst: {
+        //     compile: {
+        //         files: {
+        //             '.tmp/scripts/templates.js': ['<%= yeoman.app %>/scripts/templates/*.ejs']
+        //         }
+        //     }
+        // },
         rev: {
             dist: {
                 files: {
@@ -281,11 +281,30 @@ module.exports = function (grunt) {
             }
         },
         haml: {
-            dist: {
-                files: {
-                    '.tmp/index.html': '<%= yeoman.app %>/index.haml'
-                }
+          index: {
+            files: {
+              '.tmp/index.html': '<%= yeoman.app %>/index.haml'
+            },
+            options: { target: 'html', language: 'coffee' }
+          },
+          templates: {
+            files: grunt.file.expandMapping(['app/scripts/templates/*.haml'], '.tmp/scripts/templates/', {
+              rename: function(base, path) {
+                var path = path.replace('app/scripts/templates/', '');
+                return base + path.replace(/\.haml$/, '.hbs');
+              }
+            })
+          }
+        },
+        handlebars: {
+          compile: {
+            options: {
+              namespace: "JST"
+            },
+            files: {
+              ".tmp/scripts/templates.js": '.tmp/scripts/templates/*.hbs'
             }
+          }
         }
     });
 
@@ -299,6 +318,12 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('serve', function (target) {
+        console.log(grunt.file.expandMapping(['<%= yeoman.app %>/scripts/templates/*.haml'], '.tmp/scripts/templates/', {
+          expand: true,
+          rename: function(base, path) {
+            return base + path.replace(/\.haml$/, '.hbs');
+          }
+        }));
         if (target === 'dist') {
             return grunt.task.run(['build', 'open:server', 'connect:dist:keepalive']);
         }
@@ -308,7 +333,7 @@ module.exports = function (grunt) {
                 'clean:server',
                 'coffee',
                 'createDefaultTemplate',
-                'jst',
+                // 'jst',
                 'compass:server',
                 'connect:test',
                 'open:test',
@@ -319,9 +344,11 @@ module.exports = function (grunt) {
         grunt.task.run([
             'clean:server',
             'coffee:dist',
-            'haml:dist',
-            'createDefaultTemplate',
-            'jst',
+            'haml:index',
+            'haml:templates',
+            'handlebars',
+            // 'createDefaultTemplate',
+            // 'jst',
             'compass:server',
             'connect:livereload',
             'open:server',
@@ -335,8 +362,11 @@ module.exports = function (grunt) {
                 'clean:server',
                 'coffee',
                 'createDefaultTemplate',
-                'jst',
+                // 'jst',
                 'compass',
+                'haml:index',
+                'haml:templates',
+                'handlebars',
                 'connect:test',
                 'mocha',
                 'watch:test'
@@ -355,9 +385,11 @@ module.exports = function (grunt) {
         'clean:dist',
         'coffee',
         'createDefaultTemplate',
-        'jst',
+        // 'jst',
         'compass:dist',
-        'haml:dist',
+        'haml:index',
+        'haml:templates',
+        'handlebars',
         'useminPrepare',
         'imagemin',
         'htmlmin',
@@ -374,6 +406,4 @@ module.exports = function (grunt) {
         'test',
         'build'
     ]);
-
-    grunt.loadNpmTasks('grunt-contrib-haml');
 };

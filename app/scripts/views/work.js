@@ -13,10 +13,12 @@ Explorer.Views = Explorer.Views || {};
         },
 
         render: function() {
-          console.log(this.work);
-          var html = this.template(this.work.attributes);
-          this.$el.append(html);
+          var html = $(this.template(this.work.attributes)),
+              el = this.$el;
+          el.imagesLoaded(function() {
+            el.masonry({ itemSelector: 'div.item' });
+          });
+          el.append(html);
         }
     });
-
 })();

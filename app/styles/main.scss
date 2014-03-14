@@ -4,6 +4,19 @@ $font-size-base: 16px;
 
 @import 'sass-bootstrap/lib/bootstrap';
 
-body {
-    color: blue;
+div#works {
+  @include clearfix();
+
+  div.item {
+    width: 33%;
+    float: left;
+
+    figure {
+      padding: 20px;
+
+      img {
+        max-width: 100%;
+      }
+    }
+  }
 }

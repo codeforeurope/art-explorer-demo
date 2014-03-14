@@ -1,3 +1,11 @@
-%li
-  %h1 Title {{ title }}
-  %h2 Artist {{ fullname }}
+.item
+  %figure
+    %img(src="{{ imageURL }}")
+    %figcaption
+      {{#if title}}
+      %h1 {{title}}
+      {{/if}}
+
+      {{#if fullname}}
+      %h2 {{fullname}}
+      {{/if}}

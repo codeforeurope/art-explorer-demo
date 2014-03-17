@@ -293,7 +293,10 @@ module.exports = function (grunt) {
                 var path = path.replace('app/scripts/templates/', '');
                 return base + path.replace(/\.haml$/, '.hbs');
               }
-            })
+            }),
+            options: {
+              language: 'ruby'
+            }
           }
         },
         handlebars: {

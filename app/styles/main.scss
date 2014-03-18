@@ -4,6 +4,10 @@ $font-size-base: 16px;
 
 @import 'sass-bootstrap/lib/bootstrap';
 
+div#work-outer {
+  overflow: auto;
+}
+
 div#works {
   @include clearfix();
 
@@ -12,7 +16,7 @@ div#works {
     float: left;
 
     figure {
-      padding: 20px;
+      padding: 0 20px 20px 20px;
 
       img {
         max-width: 100%;

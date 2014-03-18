@@ -302,7 +302,11 @@ module.exports = function (grunt) {
         handlebars: {
           compile: {
             options: {
-              namespace: "JST"
+              namespace: "JST",
+              processName: function(filepath) {
+                console.log(filepath);
+                return filepath.replace('.tmp/scripts/', '');
+              }
             },
             files: {
               ".tmp/scripts/templates.js": '.tmp/scripts/templates/*.hbs'
@@ -321,12 +325,6 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('serve', function (target) {
-        console.log(grunt.file.expandMapping(['<%= yeoman.app %>/scripts/templates/*.haml'], '.tmp/scripts/templates/', {
-          expand: true,
-          rename: function(base, path) {
-            return base + path.replace(/\.haml$/, '.hbs');
-          }
-        }));
         if (target === 'dist') {
             return grunt.task.run(['build', 'open:server', 'connect:dist:keepalive']);
         }

@@ -9,18 +9,26 @@ window.Explorer = {
     'use strict';
     Backbone.history.start({pushState: true});
 
-    var worksContainer = $('div#works');
-    var works = new Explorer.Collections.Works();
-    works.on('add', function(work) {
-      // TODO: not this
-      var r = Math.floor(Math.random() * 99)*4 + 96;
-      work.set('imageURL','http://placekitten.com/320/'+r);
+    var works = new Explorer.Collections.Works(),
+        worksContainer = $('div#works'),
+        worksView = new Explorer.Views.WorksView({ el: worksContainer, works: works});
 
-      var workView = new Explorer.Views.WorkView({el: worksContainer, work: work});
-      workView.render();
-    });
-    works.fetch({
-      data: { q: '*', pp: 12 }
+    worksContainer.masonry({itemSelector: '.item', columnWidth: 10});
+    works.search('*');
+
+    $(window).on('scroll', function() {
+      if (works.isLoading()) {
+        return false; // do nothing
+      }
+
+      var triggerPoint = 100,
+          contentHeight = $('body').prop('scrollHeight'),
+          viewed = $(window).scrollTop() + $(window).height();
+
+      if (viewed+triggerPoint >= contentHeight) {
+        console.log('moarrr!');
+        works.loadMore();
+      }
     });
   }
 };

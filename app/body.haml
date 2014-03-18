@@ -1,12 +1,14 @@
-%nav.navbar.navbar-default
+%nav.navbar.navbar-default.navbar-fixed-top
   .container
     .navbar-header
       %a.navbar-brand
         Manchester Art Gallery
     .navbar-collapse
-      %form.navbar-form(role="search")
+      %form#search.navbar-form(role="search")
         .form-group
           %input.form-control(type="text" placeholder="Explore…")
+        %button.btn.btn-default(type="submit")
+          %i.glyphicon.glyphicon-search
 
 .container
   .row

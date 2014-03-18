@@ -11,10 +11,22 @@ window.Explorer = {
 
     var works = new Explorer.Collections.Works(),
         worksContainer = $('div#works'),
-        worksView = new Explorer.Views.WorksView({ el: worksContainer, works: works});
+        worksView = new Explorer.Views.WorksView({ el: worksContainer, works: works}),
+        searchForm = $('form#search');
 
     worksContainer.masonry({itemSelector: '.item', columnWidth: 10});
-    works.search('*');
+
+    searchForm.on('submit', function() {
+      var searchInput = searchForm.find('input'),
+          q = searchInput.val();
+
+      works.search(q);
+      searchInput.val('');
+      worksView.clear();
+      $(window).scrollTop(0);
+
+      return false; // prevent the form from doing its usual thing
+    })
 
     $(window).on('scroll', function() {
       if (works.isLoading()) {

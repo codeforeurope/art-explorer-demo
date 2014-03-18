@@ -34,6 +34,10 @@ Explorer.Views = Explorer.Views || {};
       });
 
       return this;
+    },
+
+    clear: function() {
+      this.$el.empty().masonry();
     }
   });
 })();

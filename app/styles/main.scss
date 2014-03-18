@@ -4,8 +4,8 @@ $font-size-base: 16px;
 
 @import 'sass-bootstrap/lib/bootstrap';
 
-div#work-outer {
-  overflow: auto;
+body {
+  padding-top: 70px;
 }
 
 div#works {
@@ -20,6 +20,20 @@ div#works {
 
       img {
         max-width: 100%;
+      }
+
+      figcaption {
+        margin-top: 7px;
+
+        h2, h3 {
+          font-size: 14px;
+          margin: 0;
+        }
+        h2 {
+          font-style: italic;
+          font-weight: 300;
+          // margin-bottom: 3px;
+        }
       }
     }
   }

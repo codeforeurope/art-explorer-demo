@@ -17,7 +17,6 @@ Explorer.Collections = Explorer.Collections || {};
       return response.items;
     },
     search: function(q) {
-      this.reset();
       this.query = q;
       this.page = 1;
 
@@ -32,7 +31,7 @@ Explorer.Collections = Explorer.Collections || {};
 
       works._isLoading = true
       this.fetch({
-        data: { q: this.query, page: this.page, pp: 12 },
+        data: { q: this.query, p: this.page, pp: 12 },
         reset: true,
         success: function(c, r, o) {
           works._isLoading = false;

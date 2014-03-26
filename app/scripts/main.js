@@ -14,21 +14,20 @@ window.Explorer = {
         optionsView = this._optionsView = new Explorer.Views.OptionsView({ el: $('div#options')}),
         query,
         searchForm = $('form#search'),
-        router = new Explorer.AppRouter();
+        router = new Explorer.Routers.AppRouter();
 
-    Backbone.history.start({pushState: true});
+    Backbone.history.start();
 
     router.on('route:search', function(q) {
-      console.log('burp');
+      query = new Explorer.Query(q);
+      explorer.search(query);
     });
 
     searchForm.on('submit', function() {
       var searchInput = searchForm.find('input'),
           q = searchInput.val();
-
       searchInput.val('');
-      query = new Explorer.Query(q);
-      explorer.search(query);
+      router.navigate('/search/'+q, {trigger: true});
 
       return false; // prevent the form from doing its usual thing
     });

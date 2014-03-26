@@ -9,17 +9,17 @@
         / endbuild
         %link(rel="stylesheet" href="styles/main.css")
 
-        :javascript
-            (function() {
-                var path = '//easy.myfonts.net/v2/js?sid=156579(font-family=Humanist+777)&sid=156581(font-family=Humanist+777+Bold)&sid=156711(font-family=Humanist+777+Light)&key=CrYX1mMIoO',
-                    protocol = ('https:' == document.location.protocol ? 'https:' : 'http:'),
-                    trial = document.createElement('script');
-                trial.type = 'text/javascript';
-                trial.async = true;
-                trial.src = protocol + path;
-                var head = document.getElementsByTagName("head")[0];
-                head.appendChild(trial);
-            })();
+        / :javascript
+        /     (function() {
+        /         var path = '//easy.myfonts.net/v2/js?sid=156579(font-family=Humanist+777)&sid=156581(font-family=Humanist+777+Bold)&sid=156711(font-family=Humanist+777+Light)&key=CrYX1mMIoO',
+        /             protocol = ('https:' == document.location.protocol ? 'https:' : 'http:'),
+        /             trial = document.createElement('script');
+        /         trial.type = 'text/javascript';
+        /         trial.async = true;
+        /         trial.src = protocol + path;
+        /         var head = document.getElementsByTagName("head")[0];
+        /         head.appendChild(trial);
+        /     })();
     %body
         +include 'app/body.haml'
 
@@ -48,5 +48,7 @@
         %script(src="scripts/models/work.js")
         %script(src="scripts/collections/works.js")
         %script(src="scripts/views/works.js")
-        %script(src="scripts/routes/works.js")
+        %script(src="scripts/views/options.js")
+        %script(src="scripts/routes/app_router.js")
+        %script(src="scripts/lib/query.js")
         / endbuild

@@ -6,12 +6,14 @@
     .navbar-collapse
       %form#search.navbar-form(role="search")
         .form-group
-          %input.form-control(type="text" placeholder="Explore…")
+          %input.form-control(type="text" placeholder="Explore…" autofocus="true")
         %button.btn.btn-default(type="submit")
           %i.glyphicon.glyphicon-search
 
 .container
   .row
-    .col-md-2 Options Panel
+    .col-md-2
+      #options
+
     .col-md-9.col-md-offset-1
       #works

@@ -1,15 +1,62 @@
 $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
-$font-family-base: "Humanist 777 Light";
 $font-size-base: 16px;
+$font-family-base: "Humanist 777", Helvetica, Arial, sans-serif !default;
+
+$font-path: "/styles/fonts/humanist-777";
 
 @import 'sass-bootstrap/lib/bootstrap';
+@import "compass/css3/font-face";
+
+@include font-face('Humanist 777', font-files('/styles/fonts/humanist-777-light-webfont.woff', '/styles/fonts/humanist-777-light-webfont.ttf', '/styles/fonts/humanist-777-light-webfont.svg'), '/styles/fonts/humanist-777-light-webfont.eot', 300);
+@include font-face('Humanist 777', font-files('/styles/fonts/humanist-777-light-italic-webfont.woff', '/styles/fonts/humanist-777-light-italic-webfont.ttf', '/styles/fonts/humanist-777-light-italic-webfont.svg'), '/styles/fonts/humanist-777-light-italic-webfont.eot', 300, italic);
+@include font-face('Humanist 777', font-files('/styles/fonts/humanist-777-webfont.woff', '/styles/fonts/humanist-777-webfont.ttf', '/styles/fonts/humanist-777-webfont.svg'), '/styles/fonts/humanist-777-webfont.eot', 400);
+@include font-face('Humanist 777', font-files('/styles/fonts/humanist-777-bold-webfont.woff', '/styles/fonts/humanist-777-bold-webfont.ttf', '/styles/fonts/humanist-777-bold-webfont.svg'), '/styles/fonts/humanist-777-bold-webfont.eot', 700);
+
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-bold: 700;
+
+
 
 body {
   padding-top: 70px;
+  font-weight: $font-weight-light;
+}
+
+input {
+  font-weight: $font-weight-light;
+}
+
+div#options {
+  h2 {
+    font-size: 18px;
+    font-weight: $font-weight-bold;
+    padding: 0 0 5px 0;
+    margin: 0 0 10px 0;
+    border-bottom: 3px solid #333;
+  }
+  h3 {
+    font-size: 16px;
+    margin: 0 0 5px 0;
+  }
+
+  .windowed {
+    height: 112px;
+    overflow: scroll;
+    width: 100%;
+  }
 }
 
 div#works {
   @include clearfix();
+
+  header {
+    padding: 0 20px 10px 20px;
+
+    strong {
+      font-weight: $font-weight-normal;
+    }
+  }
 
   div.item {
     width: 33%;
@@ -31,8 +78,8 @@ div#works {
         }
         h2 {
           font-style: italic;
-          font-weight: 300;
-          // margin-bottom: 3px;
+          font-weight: $font-weight-light;
+          margin-bottom: 4px;
         }
       }
     }

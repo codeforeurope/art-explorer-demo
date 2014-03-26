@@ -1,0 +1,26 @@
+{{#if filters}}
+%ul#filters.list-unstyled
+  {{#each filters}}
+  %h3 {{title}}
+  %ul.list-unstyled
+    {{#each terms}}
+    %li
+      %a.remove-option(href="#" data-term="{{this}}" data-option="{{../title}}") {{this}}
+    {{/each}}
+  {{/each}}
+{{/if}}
+
+%h2 Options
+%ul#options.list-unstyled
+  {{#each options}}
+  %li
+    %h3 {{title}}
+    .windowed
+      %ul.list-unstyled
+        {{#each terms}}
+        %li
+          %a.select-option(href="#" data-term="{{term}}" data-option="{{../title}}")
+            {{term}}
+            %span {{count}}
+        {{/each}}
+  {{/each}}

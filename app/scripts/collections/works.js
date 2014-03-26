@@ -10,36 +10,74 @@ Explorer.Collections = Explorer.Collections || {};
     url: 'http://data.manchestergalleries.dev/search',
 
     initialize: function(opts) {
-      this.page = 1;
       this._isLoading = false;
     },
     parse: function(response) {
+      this._options = response.facets;
+      this._count = response.total;
+
       return response.items;
     },
     search: function(q) {
-      this.query = q;
-      this.page = 1;
-
+      this._query = q;
+      this.load();
+    },
+    reload: function() {
+      this._query.resetPageCount();
       this.load();
     },
     loadMore: function() {
-      this.page += 1;
+      this._query.nextPage();
       this.load();
     },
     load: function() {
       var works = this;
 
-      works._isLoading = true
+      works.startLoading();
       this.fetch({
-        data: { q: this.query, p: this.page, pp: 12 },
+        data: this._query.getQueryData(),
         reset: true,
         success: function(c, r, o) {
-          works._isLoading = false;
+          works.finishLoading();
         }
       });
     },
+    startLoading: function() {
+      this._isLoading = true;
+    },
+    finishLoading: function() {
+      this._isLoading = false;
+      // first set of results, so trigger a search event
+      if (this._query.isFirstPage()) {
+        this.trigger('search');
+      }
+    },
     isLoading: function() {
       return this._isLoading;
+    },
+
+    getFilteredOptions: function(filters) {
+      var options = _.reduce(this._options, function(o, option) {
+        var title = option.title,
+            terms = option.terms,
+            filter = _.find(filters, function(f) {
+              return (f.title == title);
+            });
+
+        if (filter) {
+          terms = _.reject(terms, function(term) {
+            return (_.contains(filter.terms, term.term));
+          });
+        }
+
+        o.push({ title: title, terms: terms });
+        return o;
+      }, []);
+
+      return options;
+    },
+    count: function() {
+      return this._count;
     }
   });
 

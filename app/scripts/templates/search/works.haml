@@ -1,0 +1,16 @@
+.grid-sizer
+{{#each works}}
+.item
+  %a.show(href="#" data-irn="{{irn}}")
+    %figure
+      .img-container
+        %img(src="{{ imageURL }}")
+      %figcaption
+        {{#if title}}
+        %h2 {{title}}
+        {{/if}}
+
+        {{#if fullname}}
+        %h3 {{fullname}}
+        {{/if}}
+{{/each}}

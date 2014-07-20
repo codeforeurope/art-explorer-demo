@@ -7,7 +7,9 @@
         / build:js scripts/vendor/modernizr.js
         %script(src="bower_components/modernizr/modernizr.js")
         / endbuild
+        / build:css(.tmp) styles/main.css
         %link(rel="stylesheet" href="styles/main.css")
+        / endbuild
 
         / :javascript
         /     (function() {
@@ -23,7 +25,7 @@
     %body
         +include 'app/body.haml'
 
-        / build:js scripts/vendor.js
+        / build:js(app) scripts/vendor.js
         %script(src="bower_components/jquery/jquery.js")
         %script(src="bower_components/underscore/underscore.js")
         %script(src="bower_components/backbone/backbone.js")
@@ -40,6 +42,7 @@
         %script(src="bower_components/outlayer/outlayer.js")
         %script(src="bower_components/jquery-masonry/masonry.js")
         %script(src="bower_components/imagesloaded/imagesloaded.js")
+        %script(src="bower_components/sass-bootstrap/js/dropdown.js")
         / endbuild
 
         / build:js({.tmp,app}) scripts/main.js
@@ -47,8 +50,11 @@
         %script(src="scripts/templates.js")
         %script(src="scripts/models/work.js")
         %script(src="scripts/collections/works.js")
-        %script(src="scripts/views/works.js")
-        %script(src="scripts/views/options.js")
+        %script(src="scripts/views/search_view.js")
+        %script(src="scripts/views/search/works_view.js")
+        %script(src="scripts/views/search/options_view.js")
+        %script(src="scripts/views/search/header_view.js")
+        %script(src="scripts/views/work_view.js")
         %script(src="scripts/routes/app_router.js")
         %script(src="scripts/lib/query.js")
         / endbuild

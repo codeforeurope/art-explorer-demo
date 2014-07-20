@@ -9,63 +9,44 @@ window.Explorer = {
     'use strict';
 
     var explorer = this,
-        works = this._works = new Explorer.Collections.Works(),
-        worksView = this._worksView = worksView = new Explorer.Views.WorksView({ el: $('div#works')}),
-        optionsView = this._optionsView = new Explorer.Views.OptionsView({ el: $('div#options')}),
         query,
+        mainContainer = this._mainContainer = $('div#main'),
+        searchView = this._searchView = new Explorer.Views.SearchView({el: mainContainer}),
+        workView = new Explorer.Views.WorkView({el: mainContainer}),
         searchForm = $('form#search'),
-        router = new Explorer.Routers.AppRouter();
+        appRouter = this._appRouter = new Explorer.Routers.AppRouter();
 
     Backbone.history.start();
 
-    router.on('route:search', function(q) {
+    appRouter.on('route:search', function(q) {
       query = new Explorer.Query(q);
-      explorer.search(query);
+      explorer.renderSearchResults(query);
+    });
+    appRouter.on('route:showWork', function(irn) {
+      workView.render(irn, query);
     });
 
-    searchForm.on('submit', function() {
+    searchForm.on('submit', function(e) {
       var searchInput = searchForm.find('input'),
           q = searchInput.val();
       searchInput.val('');
-      router.navigate('/search/'+q, {trigger: true});
+      appRouter.navigate('/search/'+q, {trigger: true});
 
-      return false; // prevent the form from doing its usual thing
-    });
-
-    works.on('search', function() {
-      worksView.renderHeader(query, this);
-      optionsView.render(query, this);
-    });
-    works.on('sync', function() {
-      worksView.render(this);
-    });
-
-    optionsView.on('optionSelected', function(option, term) {
-      query.addFilter(option,term);
-      explorer.search(query);
-    });
-
-    optionsView.on('optionDeselected', function(option, term) {
-      query.removeFilter(option,term);
-      explorer.search(query);
+      e.preventDefault();
     });
 
     $(window).on('scroll', function() {
-      explorer.scrollCheck();
+      explorer.scrollCheck(searchView);
     });
   },
 
-  search: function(query) {
-    $(window).scrollTop(0);
-    this._worksView.clear();
-    this._optionsView.clear();
-    this._works.search(query);
-    return true;
+  renderSearchResults: function(query) {
+    this._searchView.render(query);
   },
 
-  scrollCheck: function() {
-    if (this._works.isLoading()) {
-      return false; // do nothing
+  scrollCheck: function(searchView) {
+    if (searchView.isLoading()) {
+      return; // do nothing
     }
 
     var triggerPoint = 100,
@@ -73,9 +54,22 @@ window.Explorer = {
         viewed = $(window).scrollTop() + $(window).height();
 
     if (viewed+triggerPoint >= contentHeight) {
-      this._works.loadMore();
+      searchView.loadMore();
     }
     return true;
+  },
+
+  getAppRouter: function() {
+    return this._appRouter;
+  },
+
+  showSpinner: function() {
+    var spinner = this._spinner = $('<div class="loader"><div class="spinner" /></div>');
+    this._mainContainer.append(spinner);
+  },
+
+  hideSpinner: function() {
+    this._spinner.remove();
   }
 };
 

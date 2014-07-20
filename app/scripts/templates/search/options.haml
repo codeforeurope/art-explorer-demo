@@ -5,7 +5,7 @@
   %ul.list-unstyled
     {{#each terms}}
     %li
-      %a.remove-option(href="#" data-term="{{this}}" data-option="{{../title}}") {{this}}
+      %a.remove-option(href="#" data-term="{{this}}" data-option="{{../value}}") {{this}} &times;
     {{/each}}
   {{/each}}
 {{/if}}
@@ -19,7 +19,7 @@
       %ul.list-unstyled
         {{#each terms}}
         %li
-          %a.select-option(href="#" data-term="{{term}}" data-option="{{../title}}")
+          %a.select-option(href="#" data-term="{{term}}" data-option="{{../value}}")
             {{term}}
             %span {{count}}
         {{/each}}

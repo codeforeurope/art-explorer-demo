@@ -1,12 +1,32 @@
-.item
-  %figure
-    .img-container
-      %img(src="{{ imageURL }}")
-    %figcaption
-      {{#if title}}
-      %h2 {{title}}
-      {{/if}}
+#work.row
+  .query.col-md-3
+    {{#if query}}
+    %a.back-to-query(href="#")
+      &laquo;
+      Back to
+      %strong {{query}}
+    {{/if}}
+    &nbsp;
 
-      {{#if fullname}}
-      %h3 {{fullname}}
-      {{/if}}
+  .image.col-md-6
+    %img(src="{{work.imageURL}}")
+
+  .details.col-md-3
+    %h1 {{work.title}}
+    %h2 {{work.fullname}}
+
+    %hr
+
+    .group
+      %h3 Accession number
+      %p {{work.accession_number}}
+    {{#if work.collection_title}}
+    .group
+      %h3 From collection
+      %p  {{work.collection_title}}
+    {{/if}}
+    {{#if work.medium}}
+    .group
+      %h3
+      %p  {{work.medium}}
+    {{/if}}

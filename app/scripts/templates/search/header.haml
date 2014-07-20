@@ -1,0 +1,19 @@
+.row
+  .info.col-md-8
+    Showing {{count}}
+    {{#if filtered}}
+    filtered
+    {{/if}}
+    works for
+    %strong {{query}}
+  .actions.col-md-4
+    Sort by
+    .btn-group
+      .btn.btn-default.dropdown-toggle(data-toggle="dropdown")
+        {{sortedBy}}
+        %span.caret
+      %ul.dropdown-menu(role="menu")
+        {{#each additionalSortOptions}}
+        %li
+          %a.sort(href="#" data-option="{{value}}") {{title}}
+        {{/each}}

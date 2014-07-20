@@ -8,6 +8,7 @@ Explorer.Routers = Explorer.Routers || {};
     Explorer.Routers.AppRouter = Backbone.Router.extend({
       routes: {
         'search/:query': 'search',
+        'work/:id': 'showWork',
         '*actions': 'default'
       }
     });

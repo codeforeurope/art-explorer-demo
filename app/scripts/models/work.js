@@ -1,18 +1,26 @@
-  /*global Explorer, Backbone*/
+/*global Explorer, Backbone*/
 
 Explorer.Models = Explorer.Models || {};
 
 (function () {
-    'use strict';
+  'use strict';
 
-    Explorer.Models.Work = Backbone.Model.extend({
-        url: '',
-        parse: function(response, options)  {
-            // TODO: not this
-            var r = Math.floor(Math.random() * 99)*4 + 96;
-            response.imageURL = 'http://placekitten.com/320/'+r;
+  Explorer.Models.Work = Backbone.Model.extend({
+    initialize: function(opts) {
+      console.log(opts);
+      this._irn = opts.irn;
+    },
+    url: function() {
+      return 'http://data.manchestergalleries.asacalow.me/i/' + this._irn;
+    },
+    parse: function(response, options)  {
+      if (response.images) {
+        response.imageURL = 'http://data.manchestergalleries.asacalow.me/assets/images/thumb/'+response.images[0];
+      } else {
+        // insert link to a stock 'no image' image
+      }
 
-            return response;
-        }
-    });
+      return response;
+    }
+  });
 })();

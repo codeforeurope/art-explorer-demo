@@ -45,7 +45,7 @@ module.exports = function (grunt) {
                 tasks: ['compass']
             },
             haml: {
-            files: ['<%= yeoman.app %>/*.haml', '<%= yeoman.app %>/scripts/templates/*.haml'],
+            files: ['<%= yeoman.app %>/*.haml', '<%= yeoman.app %>/scripts/templates/{,*/}*.haml'],
                 tasks: ['haml:index', 'haml:templates', 'handlebars']
             },
             livereload: {
@@ -190,7 +190,7 @@ module.exports = function (grunt) {
             dist: {}
         },*/
         useminPrepare: {
-            html: '<%= yeoman.app %>/index.html',
+            html: '.tmp/index.html',
             options: {
                 dest: '<%= yeoman.dist %>'
             }
@@ -202,26 +202,26 @@ module.exports = function (grunt) {
                 dirs: ['<%= yeoman.dist %>']
             }
         },
-        imagemin: {
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= yeoman.app %>/images',
-                    src: '{,*/}*.{png,jpg,jpeg}',
-                    dest: '<%= yeoman.dist %>/images'
-                }]
-            }
-        },
-        cssmin: {
-            dist: {
-                files: {
-                    '<%= yeoman.dist %>/styles/main.css': [
-                        '.tmp/styles/{,*/}*.css',
-                        '<%= yeoman.app %>/styles/{,*/}*.css'
-                    ]
-                }
-            }
-        },
+        // imagemin: {
+        //     dist: {
+        //         files: [{
+        //             expand: true,
+        //             cwd: '<%= yeoman.app %>/images',
+        //             src: '{,*/}*.{png,jpg,jpeg}',
+        //             dest: '<%= yeoman.dist %>/images'
+        //         }]
+        //     }
+        // },
+        // cssmin: {
+        //     dist: {
+        //         files: {
+        //             '<%= yeoman.dist %>/styles/main.css': [
+        //                 '.tmp/styles/{,*/}*.css',
+        //                 '<%= yeoman.app %>/styles/{,*/}*.css'
+        //             ]
+        //         }
+        //     }
+        // },
         htmlmin: {
             dist: {
                 options: {
@@ -237,7 +237,7 @@ module.exports = function (grunt) {
                 },
                 files: [{
                     expand: true,
-                    cwd: '<%= yeoman.app %>',
+                    cwd: '.tmp',
                     src: '*.html',
                     dest: '<%= yeoman.dist %>'
                 }]
@@ -288,7 +288,7 @@ module.exports = function (grunt) {
             options: { target: 'html', language: 'coffee' }
           },
           templates: {
-            files: grunt.file.expandMapping(['app/scripts/templates/*.haml'], '.tmp/scripts/templates/', {
+          files: grunt.file.expandMapping(['app/scripts/templates/{,*/}*.haml'], '.tmp/scripts/templates/', {
               rename: function(base, path) {
                 var path = path.replace('app/scripts/templates/', '');
                 return base + path.replace(/\.haml$/, '.hbs');
@@ -309,7 +309,7 @@ module.exports = function (grunt) {
               }
             },
             files: {
-              ".tmp/scripts/templates.js": '.tmp/scripts/templates/*.hbs'
+              ".tmp/scripts/templates.js": '.tmp/scripts/templates/{,*/}*.hbs'
             }
           }
         }
@@ -387,18 +387,18 @@ module.exports = function (grunt) {
         'coffee',
         'createDefaultTemplate',
         // 'jst',
-        'compass:dist',
+        'compass',
         'haml:index',
         'haml:templates',
         'handlebars',
         'useminPrepare',
-        'imagemin',
-        'htmlmin',
         'concat',
         'cssmin',
         'uglify',
         'copy',
         'rev',
+        //'imagemin',
+        'htmlmin',
         'usemin'
     ]);
 

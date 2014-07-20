@@ -7,7 +7,7 @@ Explorer.Collections = Explorer.Collections || {};
 
   Explorer.Collections.Works = Backbone.Collection.extend({
     model: Explorer.Models.Work,
-    url: 'http://data.manchestergalleries.dev/search',
+    url: 'http://data.manchestergalleries.asacalow.me/search',
 
     initialize: function(opts) {
       this._isLoading = false;

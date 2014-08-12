@@ -12,10 +12,10 @@ Explorer.Views = Explorer.Views || {};
 
     template: JST["templates/work.hbs"],
 
-    render: function(irn, query) {
+    render: function(identifier, query) {
       var el = this.$el,
           template = this.template,
-          work = new Explorer.Models.Work({irn: irn}),
+          work = new Explorer.Models.Work({identifier: identifier}),
           q;
       if (query) {
         this._query = query
@@ -37,6 +37,7 @@ Explorer.Views = Explorer.Views || {};
     },
 
     backToQuery: function(e) {
+      this._query.resetPageCount();
       Explorer.getAppRouter().navigate('/search/'+this._query.getQuery());
       Explorer.renderSearchResults(this._query);
       e.preventDefault();

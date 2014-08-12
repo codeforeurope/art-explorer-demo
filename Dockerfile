@@ -18,9 +18,8 @@ CMD ["/sbin/my_init"]
 
 EXPOSE 80
 
-# Install packages for ruby & node/npm
 RUN apt-get update
-RUN apt-get install -y --force-yes nginx
+RUN apt-get install -y --force-yes build-essential wget git nginx
 
 ADD dist /usr/share/nginx/html
 

@@ -52,6 +52,7 @@ Explorer.Views = Explorer.Views || {};
 
     facetMap: function() {
       var facetMap = {
+        'creator': 'Artist',
         'medium': 'Medium',
         'type': 'Type',
         'subject': 'Subject'

@@ -285,7 +285,7 @@ module.exports = function (grunt) {
             files: {
               '.tmp/index.html': '<%= yeoman.app %>/index.haml'
             },
-            options: { target: 'html', language: 'coffee' }
+            options: { target: 'html', language: 'ruby' }
           },
           templates: {
           files: grunt.file.expandMapping(['app/scripts/templates/{,*/}*.haml'], '.tmp/scripts/templates/', {
@@ -369,7 +369,7 @@ module.exports = function (grunt) {
                 'haml:templates',
                 'handlebars',
                 'connect:test',
-                'mocha',
+                //'mocha',
                 'watch:test'
             ];
 

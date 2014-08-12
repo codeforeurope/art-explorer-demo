@@ -38,9 +38,9 @@ Explorer.Views = Explorer.Views || {};
 
     showWork: function(e) {
       var a = $(e.currentTarget),
-          irn = a.data('irn');
+          identifier = a.data('identifier');
 
-      Explorer.getAppRouter().navigate('/work/'+irn, {trigger: true});
+      Explorer.getAppRouter().navigate('/work/'+identifier, {trigger: true});
 
       e.preventDefault();
     }

@@ -22,7 +22,7 @@
           p: this._page,
           pp: this._perPage,
           i: true,
-          f: 'type,subject',
+          f: 'creator,type,subject',
           s: this.getSortField(),
           so: this.getSortOrder()
         };

@@ -22,8 +22,8 @@ window.Explorer = {
       query = new Explorer.Query(q);
       explorer.renderSearchResults(query);
     });
-    appRouter.on('route:showWork', function(irn) {
-      workView.render(irn, query);
+    appRouter.on('route:showWork', function(identifier) {
+      workView.render(identifier, query);
     });
 
     searchForm.on('submit', function(e) {

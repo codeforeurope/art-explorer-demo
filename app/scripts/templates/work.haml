@@ -11,22 +11,38 @@
   .image.col-md-6
     %img(src="{{work.imageURL}}")
 
-  .details.col-md-3
+  .col-md-3.details
     %h1 {{work.title}}
-    %h2 {{work.fullname}}
+    %h2 {{work.creator}}
 
     %hr
 
     .group
       %h3 Accession number
-      %p {{work.accession_number}}
-    {{#if work.collection_title}}
+      %p {{work.identifier}}
+    {{#if work.description}}
     .group
-      %h3 From collection
-      %p  {{work.collection_title}}
+      %h3 Description
+      %p {{work.description}}
     {{/if}}
-    {{#if work.medium}}
+    {{#if work.type}}
     .group
-      %h3
-      %p  {{work.medium}}
+      %h3 Medium
+      %p {{work.type}}
+    {{/if}}
+    {{#if work.subject}}
+    .group
+      %h3 Tags
+      %p {{work.subject}}
+    {{/if}}
+    {{#if work.on}}
+    .group
+      %h3 Created
+      %p {{work.on}}
+    {{else}}
+    {{#if work.earliest}}
+    .group
+      %h3 Created
+      %p Between {{work.earliest}} and {{work.latest}}
+    {{/if}}
     {{/if}}

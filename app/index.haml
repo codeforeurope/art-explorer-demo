@@ -1,60 +1,84 @@
 !!!
 %html
-    %head
-        %meta(charset="utf-8")
-        %meta(name="viewport" content="width=device-width, initial-scale=1")
-        %title Manchester Art Gallery: Collection Explorer
-        / build:js scripts/vendor/modernizr.js
-        %script(src="bower_components/modernizr/modernizr.js")
-        / endbuild
-        / build:css(.tmp) styles/main.css
-        %link(rel="stylesheet" href="styles/main.css")
-        / endbuild
+  %head
+    %meta(charset="utf-8")
+    %meta(name="viewport" content="width=device-width, initial-scale=1")
+    %title Manchester Art Gallery: Collection Explorer
+    / build:js scripts/vendor/modernizr.js
+    %script(src="bower_components/modernizr/modernizr.js")
+    / endbuild
+    / build:css(.tmp) styles/main.css
+    %link(rel="stylesheet" href="styles/main.css")
+    / endbuild
 
-        / :javascript
-        /     (function() {
-        /         var path = '//easy.myfonts.net/v2/js?sid=156579(font-family=Humanist+777)&sid=156581(font-family=Humanist+777+Bold)&sid=156711(font-family=Humanist+777+Light)&key=CrYX1mMIoO',
-        /             protocol = ('https:' == document.location.protocol ? 'https:' : 'http:'),
-        /             trial = document.createElement('script');
-        /         trial.type = 'text/javascript';
-        /         trial.async = true;
-        /         trial.src = protocol + path;
-        /         var head = document.getElementsByTagName("head")[0];
-        /         head.appendChild(trial);
-        /     })();
-    %body
-        +include 'app/body.haml'
+    / :javascript
+    /     (function() {
+    /         var path = '//easy.myfonts.net/v2/js?sid=156579(font-family=Humanist+777)&sid=156581(font-family=Humanist+777+Bold)&sid=156711(font-family=Humanist+777+Light)&key=CrYX1mMIoO',
+    /             protocol = ('https:' == document.location.protocol ? 'https:' : 'http:'),
+    /             trial = document.createElement('script');
+    /         trial.type = 'text/javascript';
+    /         trial.async = true;
+    /         trial.src = protocol + path;
+    /         var head = document.getElementsByTagName("head")[0];
+    /         head.appendChild(trial);
+    /     })();
+  %body
+    %nav.navbar.navbar-default.navbar-fixed-top
+      .container-fluid
+        .navbar-header
+          %a.navbar-brand
+            Manchester Art Gallery
+        .navbar-collapse
+          %form#search.navbar-form(role="search")
+            .form-group
+              %input.form-control(type="text" placeholder="Explore…" autofocus="true")
+            %button.btn.btn-default(type="submit")
+              %i.glyphicon.glyphicon-search
 
-        / build:js(app) scripts/vendor.js
-        %script(src="bower_components/jquery/jquery.js")
-        %script(src="bower_components/underscore/underscore.js")
-        %script(src="bower_components/backbone/backbone.js")
-        %script(src="bower_components/handlebars/handlebars.js")
+    #main.container-fluid
+      #search.row
+        .col-md-2
+        .col-md-8
+          :markdown
+            ### Welcome to the Manchester Art Gallery Collection Explorer
 
-        %script(src="bower_components/eventie/eventie.js")
-        %script(src="bower_components/doc-ready/doc-ready.js")
-        %script(src="bower_components/get-style-property/get-style-property.js")
-        %script(src="bower_components/get-size/get-size.js")
-        %script(src="bower_components/eventEmitter/EventEmitter.js")
-        %script(src="bower_components/jquery-bridget/jquery.bridget.js")
-        %script(src="bower_components/matches-selector/matches-selector.js")
-        %script(src="bower_components/outlayer/item.js")
-        %script(src="bower_components/outlayer/outlayer.js")
-        %script(src="bower_components/jquery-masonry/masonry.js")
-        %script(src="bower_components/imagesloaded/imagesloaded.js")
-        %script(src="bower_components/sass-bootstrap/js/dropdown.js")
-        / endbuild
+            Start by entering a keyword (or series of keywords) into the search box above.
 
-        / build:js({.tmp,app}) scripts/main.js
-        %script(src="scripts/main.js")
-        %script(src="scripts/templates.js")
-        %script(src="scripts/models/work.js")
-        %script(src="scripts/collections/works.js")
-        %script(src="scripts/views/search_view.js")
-        %script(src="scripts/views/search/works_view.js")
-        %script(src="scripts/views/search/options_view.js")
-        %script(src="scripts/views/search/header_view.js")
-        %script(src="scripts/views/work_view.js")
-        %script(src="scripts/routes/app_router.js")
-        %script(src="scripts/lib/query.js")
-        / endbuild
+            #### About the Collection Explorer
+
+            This is the first service built on top of the new Manchester Art Gallery Open Data API (more details of which are [here](http://foo)), funded by the European Union as part of the __[Code for Europe](http://codeforeurope.net/)__ project.
+
+
+    / build:js(app) scripts/vendor.js
+    %script(src="bower_components/jquery/jquery.js")
+    %script(src="bower_components/underscore/underscore.js")
+    %script(src="bower_components/backbone/backbone.js")
+    %script(src="bower_components/handlebars/handlebars.js")
+
+    %script(src="bower_components/eventie/eventie.js")
+    %script(src="bower_components/doc-ready/doc-ready.js")
+    %script(src="bower_components/get-style-property/get-style-property.js")
+    %script(src="bower_components/get-size/get-size.js")
+    %script(src="bower_components/eventEmitter/EventEmitter.js")
+    %script(src="bower_components/jquery-bridget/jquery.bridget.js")
+    %script(src="bower_components/matches-selector/matches-selector.js")
+    %script(src="bower_components/outlayer/item.js")
+    %script(src="bower_components/outlayer/outlayer.js")
+    %script(src="bower_components/jquery-masonry/masonry.js")
+    %script(src="bower_components/imagesloaded/imagesloaded.js")
+    %script(src="bower_components/sass-bootstrap/js/dropdown.js")
+    / endbuild
+
+    / build:js({.tmp,app}) scripts/main.js
+    %script(src="scripts/main.js")
+    %script(src="scripts/templates.js")
+    %script(src="scripts/models/work.js")
+    %script(src="scripts/collections/works.js")
+    %script(src="scripts/views/search_view.js")
+    %script(src="scripts/views/search/works_view.js")
+    %script(src="scripts/views/search/options_view.js")
+    %script(src="scripts/views/search/header_view.js")
+    %script(src="scripts/views/work_view.js")
+    %script(src="scripts/routes/app_router.js")
+    %script(src="scripts/lib/query.js")
+      / endbuild
